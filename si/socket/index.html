@@ -31,16 +31,39 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script>
       cantalk=1
+
+      function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min)) + min; //최댓값은 제외, 최솟값은 포함
+      }
+
         $(function () {
           var socket = io();
           $('#sender').click(function(e){
-            if($('#m').val() != ""&&cantalk==1){
-              e.preventDefault(); // prevents page reloading
-              socket.emit('chat message', $('#m').val());
-              $('#m').val('');
-              cantalk=0
-              setTimeout(cantalk=1,3000)
+            var n1 = getRandomInt(0,10);
+            var n2 = getRandomInt(0,10);
+            var question = `Answer ${n1} + ${n2} = `;
+            var jbResult = prompt(question , '' );
+
+            if(parseInt(jbResult) === n1 + n2){
+                        if($('#m').val() != ""&&cantalk==1){
+                        e.preventDefault(); // prevents page reloading
+                        socket.emit('chat message', $('#m').val());
+                        $('#m').val('');
+                        cantalk=0
+                        setTimeout(cantalk=1,3000)
+                      }
+          
+            }  
+            else{
+              alert("하하하 사람입니까?")
             }
+           
+
+
+
+          
             return false;
           });
           socket.on('chat message', function(msg){
