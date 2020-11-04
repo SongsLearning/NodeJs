@@ -41,23 +41,44 @@
         $(function () {
           var socket = io();
           $('#sender').click(function(e){
-            var n1 = getRandomInt(0,10);
-            var n2 = getRandomInt(0,10);
-            var question = `Answer ${n1} + ${n2} = `;
-            var jbResult = prompt(question , '' );
+            var mode=getRandomInt(0,100);
+            var n1;
+            var n2;
+            var question;
+            var answer;
 
-            if(parseInt(jbResult) === n1 + n2){
-                        if($('#m').val() != ""&&cantalk==1){
+            if (mode===0){
+              n1=getRandomInt(10,99);
+              n2=getRandomInt(10,99);
+              question = `Answer ${n1} * ${n2} = `;
+              answer=n1*n2
+            }
+            else{
+              n1=getRandomInt(0,10);
+              n2=getRandomInt(0,10);
+              question = `Answer ${n1} + ${n2} = `;
+              answer=n1+n2
+            }
+
+            
+            var jbResult = prompt(question , '' );
+            if($('#m').val().length>50)
+            {
+              alert("내 서버를 낭비하지 마시오")
+              return;
+            }
+            if(parseInt(jbResult) === answer){
+                        if($('#m').val() != ""&&cantalk==1&&$('#m').length<50){
                         e.preventDefault(); // prevents page reloading
                         socket.emit('chat message', $('#m').val());
                         $('#m').val('');
                         cantalk=0
                         setTimeout(cantalk=1,3000)
                       }
-          
+                  
             }  
             else{
-              alert("하하하 사람입니까?")
+              alert("하하하 사람입니까? ㅋㅋㅋㅋㅋ")
             }
            
 
