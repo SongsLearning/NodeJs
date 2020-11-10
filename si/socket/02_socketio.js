@@ -6,16 +6,21 @@ var app = require('express')();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
+var people = 0;
+
 
 var preStr;
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/index.html');    
 });
 
 io.on('connection', (socket) => {
+  people += 1;
+  io.emit('people count',people.toString())
   console.log('a user connected_');  
 
   socket.on('disconnect', (socket) => {
+    people -= 1;
     console.log('disconnect')
   })
 
@@ -31,8 +36,10 @@ io.on('connection', (socket) => {
     }
 
     io.emit('chat message', msg);
+   
     preStr = msg;
   });
+
 });
 
 http.listen(3000, () => {

@@ -29,6 +29,7 @@
     </script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    
     <script>
       cantalk=1
 
@@ -92,6 +93,13 @@
               window.scrollTo(0,document.body.scrollHeight);
 
           });
+
+          socket.on('people count', function(people){
+            $('#sender').text(people);
+              window.scrollTo(0,document.body.scrollHeight);
+
+          });
+          
         });
       </script>
   </body>
