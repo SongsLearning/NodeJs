@@ -3,7 +3,7 @@ var fs = require('fs')
 var path = require('path')
 
 
-
+  
 //#region 1. 정적 파일 요청 처리: fs.readFile() 사용
 var server = http.createServer(function(req, res){
   console.log('req.url : ', req.url);
