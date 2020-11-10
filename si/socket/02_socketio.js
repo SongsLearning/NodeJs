@@ -53,11 +53,11 @@ io.on('connection', (socket) => {
       console.log(socket.id + "도배");
       spamCnt += 1;
 
-      if(spamCnt > 10)
+      if(spamCnt > 3)
       {
         io.emit('bye chat', msg);
         socket.disconnect();
-
+        
       }
       
     }
